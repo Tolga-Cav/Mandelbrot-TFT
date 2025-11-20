@@ -16,15 +16,12 @@ def generate_matrix(
     height: int,
     *,
     max_steps: int,
-) -> list[list[int]]:
-    matrix: list[list[int]] = []
+    set_value
+):
     for iy in range(height):
-        row = []
         y = ymin + (ymax - ymin) * iy / (height - 1)
         for ix in range(width):
             x = xmin + (xmax - xmin) * ix / (width - 1)
             c = complex(x, y)
             steps = calc_mandelbrot_steps(c, max_steps)
-            row.append(steps)
-        matrix.append(row)
-    return matrix
+            set_value(ix, iy, steps)
